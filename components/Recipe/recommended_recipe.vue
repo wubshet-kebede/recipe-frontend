@@ -111,7 +111,9 @@ function proccedToBuy(recipe) {
               />
             </div>
             <div class="text-md font-normal px-2 mt-1">
-              {{ recipe.ratings_aggregate.aggregate.avg.rating || 0 }}
+              {{
+                recipe.ratings_aggregate.aggregate.avg.rating?.toFixed(1) || 0
+              }}
             </div>
           </div>
         </div>

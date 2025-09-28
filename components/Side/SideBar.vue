@@ -57,23 +57,49 @@ const isPreparationTimeOpen = ref(true);
 const ingredientSearchInput = ref("");
 const userSearchInput = ref("");
 const filteredIngredients = computed(() => {
-  const searchIngredientLower = ingredientSearchInput.value.toLowerCase();
-  return props.ingredients.filter(
-    (ingredient) =>
-      ingredient &&
-      typeof ingredient.name === "string" &&
-      ingredient.name.toLowerCase().includes(searchIngredientLower)
+  const searchIngredientLower = ingredientSearchInput.value
+    .toLowerCase()
+    .trim();
+
+  const uniqueMap = new Map();
+  const uniqueIngredients = [];
+
+  props.ingredients.forEach((ingredient) => {
+    if (!ingredient || typeof ingredient.name !== "string") return;
+
+    const key = ingredient.id ?? ingredient.name.toLowerCase().trim();
+
+    if (!uniqueMap.has(key)) {
+      uniqueMap.set(key, true);
+      uniqueIngredients.push(ingredient);
+    }
+  });
+
+  return uniqueIngredients.filter((ingredient) =>
+    ingredient.name.toLowerCase().includes(searchIngredientLower)
   );
 });
+
 const filteredCreators = computed(() => {
   const searchUserLower = userSearchInput.value.toLowerCase();
-  return props.users.filter(
+
+  const uniqueMap = new Map();
+  const uniqueCreators = [];
+
+  props.users.forEach((creator) => {
+    if (creator && !uniqueMap.has(creator.id)) {
+      uniqueMap.set(creator.id, true);
+      uniqueCreators.push(creator);
+    }
+  });
+
+  return uniqueCreators.filter(
     (creator) =>
-      creator &&
       typeof creator.first_name === "string" &&
       creator.first_name.toLowerCase().includes(searchUserLower)
   );
 });
+
 const getCreatorNameById = (id) => {
   const users = props.users.find((c) => c.id === id);
   return users ? users.first_name : "Unknown Creator";
@@ -113,13 +139,13 @@ const removeCategory = () => {
 };
 const toggleCreator = (id) => {
   if (props.selectedUser === id) {
-    emit("update:selectedCreator", null);
+    emit("update:selectedUser", null);
   } else {
-    emit("update:selectedCreator", id);
+    emit("update:selectedUser", id);
   }
 };
 const removeCreator = () => {
-  emit("update:selectedCreator", null);
+  emit("update:selectedUser", null);
 };
 
 const handleMaxPreparationTimeChange = (event) => {
@@ -321,7 +347,7 @@ const clearAllFilters = () => {
             @click="toggleCreator(user.id)"
             class="flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 rounded-lg cursor-pointer"
             :class="{
-              'bg-green-50': props.selectedUser === user.id,
+              'bg-green-50 dark:bg-gray-400': props.selectedUser === user.id,
             }"
           >
             <input

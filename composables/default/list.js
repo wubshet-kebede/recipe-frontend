@@ -2,7 +2,7 @@ import { ref } from "vue";
 
 const enable = ref(true);
 const offset_ = ref(0);
-const limit_ = ref(100);
+const limit_ = ref(6);
 const filter_ = ref({});
 const client_ = ref("default");
 const role_ = ref("user");
