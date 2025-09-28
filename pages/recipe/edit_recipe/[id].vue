@@ -56,6 +56,8 @@ const form = ref({
 const ingredients = ref([{ name: "", quantity: "" }]);
 const steps = ref([{ instruction: "" }]);
 const files = ref([]);
+const filesToUpload = ref([]);
+const imagesToDelete = ref([]);
 // Add/remove helpers
 const addMore = () => ingredients.value.push({ name: "", quantity: "" });
 const remove = (index) => ingredients.value.splice(index, 1);
@@ -266,6 +268,25 @@ const setThumbnail = (index) => {
     ...img,
     is_featured: i === index,
   }));
+};
+const removeImage = (imageToRemove) => {
+  files.value = files.value.filter(
+    (img) => img.dataUrl !== imageToRemove.dataUrl
+  );
+
+  if (imageToRemove.image_url) {
+    imagesToDelete.value.push(imageToRemove.image_url);
+  }
+
+  if (imageToRemove.is_featured && files.value.length > 0) {
+    setThumbnail(0);
+  } else if (files.value.length === 0) {
+  }
+
+  console.log(
+    `Image removed from UI. Existing image IDs to delete on submit:`,
+    imagesToDelete.value
+  );
 };
 </script>
 
@@ -517,7 +538,7 @@ const setThumbnail = (index) => {
               :thumbnail="true"
               @onFileChange="handleFileUpload"
               :fileSize="10"
-              v-model="files"
+              v-model="filesToUpload"
             ></HFileUpload>
           </div>
           <div class="mt-1 flex flex-wrap gap-4">
@@ -542,6 +563,28 @@ const setThumbnail = (index) => {
               >
                 Thumbnail
               </span>
+              <button
+                @click.stop="removeImage(img)"
+                type="button"
+                class="absolute top-1 left-1 p-1 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-md transition duration-150 ease-in-out z-10"
+                aria-label="Remove image"
+              >
+                <!-- Simple 'X' icon (Tailwind way to do a close button) -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

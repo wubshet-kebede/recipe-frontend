@@ -254,7 +254,7 @@ bookmarkedRecipe((result) => {
                   class="text-md font-normal px-2 mt-1 dark:text-secondary-lite"
                 >
                   {{
-                    recipe.ratings_aggregate.aggregate.avg.rating.toFixed(1) ||
+                    recipe.ratings_aggregate.aggregate.avg.rating?.toFixed(1) ||
                     0
                   }}
                 </div>
