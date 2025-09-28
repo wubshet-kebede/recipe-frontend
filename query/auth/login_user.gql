@@ -1,0 +1,8 @@
+mutation login($input: LoginRequest!) {
+  login(input: $input) {
+    username
+    token
+    email
+    first_name
+  }
+}

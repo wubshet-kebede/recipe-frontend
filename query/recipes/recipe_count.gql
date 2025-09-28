@@ -1,0 +1,7 @@
+query GetUserRecipeCount($id: uuid!) {
+  recipes_aggregate(where: { user_id: { _eq: $id } }) {
+    aggregate {
+      count
+    }
+  }
+}

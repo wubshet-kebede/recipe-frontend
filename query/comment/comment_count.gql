@@ -1,0 +1,7 @@
+query GetUserCommentCount($id: uuid!) {
+  comments_aggregate(where: { user_id: { _eq: $id } }) {
+    aggregate {
+      count
+    }
+  }
+}

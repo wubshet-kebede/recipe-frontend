@@ -1,0 +1,18 @@
+query GetUserBookmarkedRecipes($id: uuid!) {
+  bookmarks(where: { user_id: { _eq: $id } }) {
+    id
+
+    recipe {
+      id
+      title
+      description
+      preparation_time_minutes
+      price_etb
+      recipe_images {
+        image_url
+        id
+      }
+      user_id
+    }
+  }
+}

@@ -1,0 +1,11 @@
+query {
+  categories {
+    name
+    id
+  }
+  categories_aggregate {
+    aggregate {
+      count
+    }
+  }
+}

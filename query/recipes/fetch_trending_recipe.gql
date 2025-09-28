@@ -1,0 +1,16 @@
+query TrendingRecipes($limit: Int = 5) {
+  trending_recipes(limit: $limit, order_by: { trend_score: desc }) {
+    id
+    title
+    description
+    trend_score
+    rating_count
+    avg_rating
+    comment_count
+    like_count
+    featured_image_url
+    user_id
+    first_name
+    last_name
+  }
+}

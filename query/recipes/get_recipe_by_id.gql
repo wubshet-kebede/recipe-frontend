@@ -1,0 +1,79 @@
+query FetchRecipeById($id: uuid!) {
+  recipes(where: { id: { _eq: $id } }) {
+    id
+    description
+    title
+    preparation_time_minutes
+    price_etb
+    category {
+      name
+      id
+    }
+    ingredients {
+      name
+      quantity
+      id
+    }
+    steps {
+      step_number
+      instruction
+    }
+    recipe_images {
+      image_url
+      is_featured
+    }
+    user {
+      first_name
+      middle_name
+      id
+    }
+    comments {
+      content
+      id
+      created_at
+      user {
+        username
+      }
+      user_id
+    }
+    comments_aggregate {
+      aggregate {
+        count
+      }
+    }
+    likes {
+      id
+      user_id
+      recipe_id
+    }
+    likes_aggregate {
+      aggregate {
+        count
+      }
+    }
+    bookmarks {
+      id
+      user_id
+      recipe_id
+    }
+    bookmarks_aggregate {
+      aggregate {
+        count
+      }
+    }
+    ratings {
+      id
+      rating
+      user_id
+      recipe_id
+    }
+    ratings_aggregate {
+      aggregate {
+        count
+        avg {
+          rating
+        }
+      }
+    }
+  }
+}

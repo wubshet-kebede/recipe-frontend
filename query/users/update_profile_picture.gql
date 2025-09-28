@@ -1,0 +1,8 @@
+mutation ($_set: users_set_input!, $where: users_bool_exp!) {
+  update_users(_set: $_set, where: $where) {
+    returning {
+      id
+      profile_picture_url
+    }
+  }
+}

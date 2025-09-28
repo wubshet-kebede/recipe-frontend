@@ -1,0 +1,7 @@
+query GetUserBookmarkCount($id: uuid!) {
+  bookmarks_aggregate(where: { user_id: { _eq: $id } }) {
+    aggregate {
+      count
+    }
+  }
+}

@@ -1,0 +1,45 @@
+mutation updateRecipeAll(
+  $recipe_id: uuid!
+  $title: String!
+  $description: String!
+  $price: numeric!
+  $preparation_time: Int!
+  $category_id: uuid!
+  $ingredients: [ingredients_insert_input!]!
+  $steps: [steps_insert_input!]!
+  $images: [recipe_images_insert_input!]!
+) {
+  update_recipes_by_pk(
+    pk_columns: { id: $recipe_id }
+    _set: {
+      title: $title
+      description: $description
+      price_etb: $price
+      preparation_time_minutes: $preparation_time
+      category_id: $category_id
+    }
+  ) {
+    id
+    title
+  }
+
+  delete_ingredients(where: { recipe_id: { _eq: $recipe_id } }) {
+    affected_rows
+  }
+  delete_steps(where: { recipe_id: { _eq: $recipe_id } }) {
+    affected_rows
+  }
+  delete_recipe_images(where: { recipe_id: { _eq: $recipe_id } }) {
+    affected_rows
+  }
+
+  insert_ingredients(objects: $ingredients) {
+    affected_rows
+  }
+  insert_steps(objects: $steps) {
+    affected_rows
+  }
+  insert_recipe_images(objects: $images) {
+    affected_rows
+  }
+}

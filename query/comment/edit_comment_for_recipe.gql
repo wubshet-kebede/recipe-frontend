@@ -1,0 +1,9 @@
+mutation UpdateComment($id: uuid!, $comment_text: String!) {
+  update_comments_by_pk(
+    pk_columns: { id: $id }
+    _set: { content: $comment_text }
+  ) {
+    id
+    content
+  }
+}

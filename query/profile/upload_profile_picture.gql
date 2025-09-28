@@ -1,0 +1,6 @@
+mutation upload_profile_picture($input: UploadProfilePictureInput!) {
+  uploadProfilePicture(input: $input) {
+    success
+    profilePictureUrl
+  }
+}

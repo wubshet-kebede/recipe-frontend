@@ -1,0 +1,9 @@
+mutation UpsertRating($recipe_id: uuid!, $user_id: uuid!, $rating: Int!) {
+  insert_ratings_one(
+    object: { recipe_id: $recipe_id, user_id: $user_id, rating: $rating }
+    on_conflict: { constraint: ratings_pkey, update_columns: [rating] }
+  ) {
+    id
+    rating
+  }
+}

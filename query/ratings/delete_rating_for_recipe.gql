@@ -1,0 +1,5 @@
+mutation DeleteRating($id: uuid!) {
+  delete_ratings_by_pk(id: $id) {
+    id
+  }
+}

@@ -1,0 +1,17 @@
+mutation AddComment(
+  $recipe_id: uuid!
+  $user_id: uuid!
+  $comment_text: String!
+) {
+  insert_comments_one(
+    object: { recipe_id: $recipe_id, user_id: $user_id, content: $comment_text }
+  ) {
+    id
+    content
+    created_at
+    user {
+      username
+      id
+    }
+  }
+}

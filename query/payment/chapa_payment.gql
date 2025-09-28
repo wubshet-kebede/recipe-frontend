@@ -1,0 +1,8 @@
+mutation initiateChapaPayment($input: InitiateChapaPaymentInput!) {
+  initiate_chapa_payment(input: $input) {
+    checkoutUrl
+    message
+    orderId
+    txRef
+  }
+}

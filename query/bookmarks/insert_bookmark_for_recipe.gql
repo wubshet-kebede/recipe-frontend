@@ -1,0 +1,8 @@
+mutation InsertBookmark($recipe_id: uuid!, $user_id: uuid!) {
+  insert_bookmarks_one(
+    object: { recipe_id: $recipe_id, user_id: $user_id }
+    on_conflict: { constraint: bookmarks_pkey, update_columns: [] }
+  ) {
+    id
+  }
+}

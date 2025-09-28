@@ -1,0 +1,6 @@
+mutation upload_files($input: UploadFilesRequestInput!) {
+  uploadFiles(input: $input) {
+    success
+    urls
+  }
+}

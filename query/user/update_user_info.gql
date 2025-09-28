@@ -1,0 +1,11 @@
+mutation UpdateUser($id: uuid!, $object: users_set_input!) {
+  update_users_by_pk(pk_columns: { id: $id }, _set: $object) {
+    id
+    first_name
+    last_name
+    email
+    phone_number
+    middle_name
+    username
+  }
+}

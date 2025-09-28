@@ -1,0 +1,21 @@
+query RecipesByUser($id: uuid!) {
+  recipes(where: { user_id: { _eq: $id } }) {
+    id
+    description
+    title
+    preparation_time_minutes
+    price_etb
+    category {
+      name
+      id
+    }
+    ingredients {
+      name
+      id
+    }
+    recipe_images(where: { is_featured: { _eq: true } }) {
+      image_url
+      is_featured
+    }
+  }
+}

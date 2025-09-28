@@ -1,0 +1,10 @@
+mutation InsertLike($recipe_id: uuid!, $user_id: uuid!) {
+  insert_likes_one(
+    object: { recipe_id: $recipe_id, user_id: $user_id }
+    on_conflict: { constraint: likes_pkey, update_columns: [] }
+  ) {
+    id
+    recipe_id
+    user_id
+  }
+}

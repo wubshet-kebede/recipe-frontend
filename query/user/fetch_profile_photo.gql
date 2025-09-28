@@ -1,0 +1,7 @@
+query getUserProfile($id: uuid!) {
+  users(where: { id: { _eq: $id } }) {
+    profile_images {
+      image_url
+    }
+  }
+}

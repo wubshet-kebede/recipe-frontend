@@ -1,0 +1,39 @@
+query Recipes($filter: recipes_bool_exp, $limit: Int = 6, $offset: Int = 0) {
+  recipes(
+    where: $filter
+    limit: $limit
+    offset: $offset
+    order_by: { created_at: desc }
+  ) {
+    id
+    title
+    description
+    preparation_time_minutes
+    price_etb
+    category {
+      id
+      name
+    }
+    ingredients {
+      id
+      name
+    }
+    recipe_images(where: { is_featured: { _eq: true } }) {
+      image_url
+      is_featured
+    }
+    user {
+      id
+      first_name
+      last_name
+    }
+    ratings_aggregate {
+      aggregate {
+        avg {
+          rating
+        }
+        count
+      }
+    }
+  }
+}
